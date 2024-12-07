@@ -33,7 +33,7 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "SERVICES=${{ secrets.SERVICES }}" >> .env
+          echo "SERVICES='${{ secrets.SERVICES }}'" >> .env
         shell: bash
           
       - name: Build and Push Docker Image
