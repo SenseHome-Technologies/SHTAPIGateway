@@ -33,7 +33,9 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "SERVICES="${{ secrets.SERVICES }}"" >> .env
+          echo "USERS_SERVICE="${{ secrets.USERS_SERVICE }}"" >> .env
+          echo "HUBS_SERVICE="${{ secrets.HUBS_SERVICE }}"" >> .env
+          echo "EXTERNAL_SERVICE="${{ secrets.EXTERNAL_SERVICE }}"" >> .env
         shell: bash
           
       - name: Build and Push Docker Image

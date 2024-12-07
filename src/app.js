@@ -29,7 +29,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Load services configuration
-const services = JSON.parse(process.env.SERVICES);
+const services = {
+    users : process.env.USERS_SERVICE,
+    hubs : process.env.HUBS_SERVICE,
+    external : process.env.EXTERNAL_SERVICE,
+};
 
 // Create the httpService
 const httpService = new HttpService(services);

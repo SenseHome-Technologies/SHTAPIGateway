@@ -29,8 +29,8 @@ class HttpService {
             // Handle non-200 responses gracefully
             if (!response.ok) {
                 // Get the error message from the response
-                const errorBody = await response.text();
-                throw new Error(`HTTP ${response.status}: ${errorBody}`);
+                const errorBody = await response.json();
+                return {status: errorBody.status, message: errorBody.message};
             }
 
             // If the path includes api-doc, return it as a string
@@ -39,7 +39,7 @@ class HttpService {
             return data;
         } catch (error) {
             // Re-throw any errors
-            throw error;
+            return {status: 500, message: error.message};
         }
     }
 }

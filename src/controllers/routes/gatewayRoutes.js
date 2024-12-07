@@ -28,7 +28,7 @@ const GatewayRoutes = (forwardRequest, rateLimiter) => {
                 res.set('Content-Type', 'text/html');
                 res.send(result); // Send as HTML if path includes 'api-doc'
             } else {
-                res.status(200).json(result); // Send as JSON for other paths
+                res.status(result.status).send(result); // Send as JSON for other paths
             }
         } catch (error) {
             // Handle errors by sending a 500 response
