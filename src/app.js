@@ -9,6 +9,7 @@ app.use(rateLimiter);
 
 app.use('/', require('./controllers/routes/userRoute'));
 app.use('/', require('./controllers/routes/hubRoute'));
+app.use('/', require('./controllers/routes/externalRoute'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
