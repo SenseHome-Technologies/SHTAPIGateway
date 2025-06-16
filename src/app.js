@@ -52,7 +52,7 @@ const httpService = new HttpService(services);
 const forwardRequest = new ForwardRequest(httpService);
 
 // Create the rate limiter
-const rateLimiter = createRateLimiter(100, 15 * 60 * 1000);
+const rateLimiter = createRateLimiter(15000, 15 * 60 * 1000);
 
 // Define the routes
 app.use('/', GatewayRoutes(forwardRequest, rateLimiter));
