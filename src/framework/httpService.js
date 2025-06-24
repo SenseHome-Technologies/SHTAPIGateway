@@ -8,14 +8,23 @@ class HttpService {
     }
 
     // Make a request to the specified service and path
-    async request({ service, path, method, body, headers }) {
+    async request({ service, path, method, body, headers, query }) {
         const baseURL = this.services[service];
         if (!baseURL) {
             throw new Error(`Service ${service} is not configured.`);
         }
 
+        // Build query string if query object exists
+        let queryString = '';
+        if (query && typeof query === 'object') {
+            const params = new URLSearchParams(query);
+            queryString = `?${params.toString()}`;
+        }
+
         // If the path includes api-doc, don't append api/
-        const url = path.includes('api-doc') ? `${baseURL}${path}` : `${baseURL}api/${path}`;
+        const isApiDoc = path.includes('api-doc');
+        const fullPath = isApiDoc ? `${baseURL}${path}` : `${baseURL}api/${path}`;
+        const url = `${fullPath}${queryString}`;
 
         const options = {
             method,
@@ -36,6 +45,7 @@ class HttpService {
             // If the path includes api-doc, return it as a string
             // Otherwise, parse the response as JSON
             const data = path.includes('api-doc') ? (await response.text()).replaceAll("./", `${baseURL}${path}/`) : await response.json();
+
             return data;
         } catch (error) {
             // Re-throw any errors

@@ -6,8 +6,8 @@ class ForwardRequest {
 
     // Execute the request using the httpService
     async execute(httpRequest) {
-        const { service, path, method, body, headers } = httpRequest;
-        return this.httpService.request({ service, path, method, body, headers });
+        const { service, path, method, body, headers, query } = httpRequest;
+        return this.httpService.request({ service, path, method, body, headers, query });
     }
 }
 
