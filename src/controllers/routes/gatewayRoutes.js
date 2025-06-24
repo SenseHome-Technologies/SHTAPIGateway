@@ -9,7 +9,7 @@ const GatewayRoutes = (forwardRequest, rateLimiter) => {
     router.all('/:service/*', rateLimiter, async (req, res) => {
         const { service } = req.params; // Extract service name from URL
         const path = req.params[0]; // Extract remaining path after service
-        const { method, body, headers } = req; // Extract method, body, and headers from request
+        const { method, body, headers, query } = req; // Extract method, body, and headers from request
 
         // Handle request aborts
         req.on('aborted', () => {
@@ -18,7 +18,7 @@ const GatewayRoutes = (forwardRequest, rateLimiter) => {
 
         try {
             // Create a new HttpRequestEntity instance
-            const httpRequest = new HttpRequestEntity({ service, path, method, body, headers });
+            const httpRequest = new HttpRequestEntity({ service, path, method, body, headers, query });
 
             // Execute the request via forwardRequest use case
             const result = await forwardRequest.execute(httpRequest);
