@@ -7,5 +7,6 @@ exports.HttpRequestEntity = class HttpRequestEntity {
         this.method = httpRequest.method; // HTTP method (GET, POST, etc.)
         this.body = httpRequest.body; // Request body
         this.headers = httpRequest.headers; // HTTP headers
+        this.query = httpRequest.query || {};
     }
 }
